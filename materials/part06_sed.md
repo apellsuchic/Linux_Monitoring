@@ -1,6 +1,6 @@
 #Bash scripts, part 6: sed and text editing
 
-### A short digression – a pipe in bash.
+### A short digression — a pipe in bash.
 
 Pipe is a unidirectional channel of inter-process communication.
 Pipes are mostly used in shell scripts to link multiple commands by redirecting the output of one command (stdout) to the input (stdin) of a subsequent command, using `|`:

@@ -20,10 +20,10 @@ Awk accepts incoming data as a set of records. The records are sets of fields. T
 ### Position variables
 
 Working with variables in awk is similar to working with command line parameters in bash. By default, awk assigns the following variables to each data field it detects in a record:
-- $0 - represents the entire string of text (the record).
-- $1 - the first field.
-- $2 - the second field.
-- $n - the nth field.
+- $0 — represents the entire string of text (the record).
+- $1 — the first field.
+- $2 — the second field.
+- $n — the nth field.
 
 Fields are selected from the text using a delimiter character. By default these are space characters like the spacebar or a tab.
 
@@ -53,8 +53,8 @@ The format specifiers are entered as follows:
 ```
 
 Here are some of them:
-- c — prints a number as an ASCII character and outputs it
-- d — prints a decimal integer
+- c — prints a number as an ASCII character and outputs it.
+- d — prints a decimal integer.
 - i — also prints a decimal integer.
 - e — prints a number in exponential notation.
 - f —  prints a number in floating point notation.
