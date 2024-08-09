@@ -95,8 +95,8 @@ Write a bash script. The script is run with 6 parameters. An example of running 
 **Parameter 2** is the number of subfolders. \
 **Parameter 3** is a list of English alphabet letters used in folder names (no more than 7 characters). \
 **Parameter 4** is the number of files in each created folder. \
-**Parameter 5** - the list of English alphabet letters used in the file name and extension (no more than 7 characters for the name, no more than 3 characters for the extension). \
-**Parameter 6** - file size (in kilobytes, but not more than 100).
+**Parameter 5** — the list of English alphabet letters used in the file name and extension (no more than 7 characters for the name, no more than 3 characters for the extension). \
+**Parameter 6** — file size (in kilobytes, but not more than 100).
 
 Folder and file names must only consist of the letters specified in the parameters and use each of them at least 1 time.  
 The length of this part of the name should be at least 4 characters, plus the script run date in DDMMYY format, separated by underscores, for example: \
@@ -121,7 +121,7 @@ Write a bash script. The script is run with 3 parameters. An example of running 
 
 **Parameter 1** is a list of English alphabet letters used in folder names (no more than 7 characters). \
 **Parameter 2** the list of English alphabet letters used in the file name and extension (no more than 7 characters for the name, no more than 3 characters for the extension). \
-**Parameter 3** - is the file size (in Megabytes, but not more than 100).
+**Parameter 3** — is the file size (in Megabytes, but not more than 100).
 
 Folder and file names must only consist of the letters specified in the parameters and use each of them at least 1 time.  
 The length of this part of the name should be at least 5 characters, plus the script run date in DDMMYY format, separated by underscores, for example: \
@@ -192,7 +192,7 @@ Depending on the value of the parameter, output the following:
 
 1. All entries sorted by response code;
 2. All unique IPs found in the entries;
-3. All requests with errors (response code - 4xx or 5xxx);
+3. All requests with errors (response code — 4xx or 5xxx);
 4. All unique IPs found among the erroneous requests.
 
 
