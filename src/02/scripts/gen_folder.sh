@@ -28,7 +28,7 @@ function generator_name {
     fi
     space=$(df / | grep -v 1K | awk '{print $4}')
     space=$(echo  "${space}/(1024*1024)" | bc)
-    while [[ $count -ne $2  && $space -ge 1 ]]; do
+    while [[ $space -ge 1 ]]; do
         space=$(df / | grep -v 1K | awk '{print $4}')
         space=$(echo  "${space}/(1024*1024)" | bc)
         flag2=$(( $count % 2 ))
@@ -76,10 +76,10 @@ name_files=$( echo $5 | awk -F. '{print $1}')
 ras_files=$( echo $5 | awk -F. '{print $2}')
 size=$( echo $6 | awk -Fk '{print $1}')
 
-for i in $( generator_name $3 $2 $1 ); do
+for i in $( generator_name $1 ); do
     mkdir -p $i
     files_log $i $3
-    for j in $( generator_name $name_files $4 ); do
+    for j in $( generator_name $name_files ); do
         name_file="${i}${j}.${ras_files}"
         fallocate -l ${size}K $name_file
         files_log $name_file $6 $3
