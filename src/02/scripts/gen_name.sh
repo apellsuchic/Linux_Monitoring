@@ -9,8 +9,7 @@ function generator_name {
         fi
     done
     mapfile -t chars < <(grep -o '.' <<< "$name")
-    len=${#chars[@]} # len chars
-    # Теперь chars - это массив, где каждый элемент - символ
+    len=${#chars[@]}
     count=0
     flag=-1
     len2=${#chars[@]}
@@ -26,11 +25,7 @@ function generator_name {
     else 
         num=1
     fi
-    space=$(df / | grep -v 1K | awk '{print $4}')
-    space=$(echo  "${space}/(1024*1024)" | bc)
-    while [[ $count -ne $2  && $space -ge 1 ]]; do
-        space=$(df / | grep -v 1K | awk '{print $4}')
-        space=$(echo  "${space}/(1024*1024)" | bc)
+    while [[ $count -ne $2 ]]; do
         flag2=$(( $count % 2 ))
         folder_name=""
         for (( j = 0; j < $len; j++ )); do
@@ -51,41 +46,13 @@ function generator_name {
         if [[ $flag == $len ]]; then
             flag=0
         fi
-        name=$(date +%d%m%g)
-        folder_name="${3}/${folder_name}_${name}"
+        if [[ -z $3 ]]; then
+            name=$(date +%d%m%g)
+            folder_name="/${folder_name}_${name}"
+        else
+            folder_name="${folder_name}"
+        fi
         echo $folder_name
         count=$(( $count + 1 ))
     done
-    if (( space <= 1 )); then
-        echo "Not enough space on the disk" >&2
-        exit 2
-    fi
 }
-
-function files_log {
-    date=$(date)
-    if [[ -z $2 ]]; then
-        log="${1};${date};DIR"
-    else
-        log="${1};${date};${2};FILE"
-    fi
-    echo "$log" >> files_log_$(date +%d_%m_%g_).log
-}
-
-name_files=$( echo $5 | awk -F. '{print $1}')
-ras_files=$( echo $5 | awk -F. '{print $2}')
-size=$( echo $6 | awk -Fk '{print $1}')
-
-for i in $( generator_name $3 $2 $1 ); do
-    mkdir -p $i
-    files_log $i
-    for j in $( generator_name $name_files $4 ); do
-        name_file="${i}${j}.${ras_files}"
-        fallocate -l ${size}K $name_file 2>/dev/null
-        if [[ $? -eq 1 ]]; then
-            break
-        fi
-        files_log $name_file $6 $3
-    done
-done
-
