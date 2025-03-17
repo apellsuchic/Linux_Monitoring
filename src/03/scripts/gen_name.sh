@@ -22,16 +22,17 @@ function generator_name {
     elif [[ $len -eq 3 ]]; then
         num=2
         flag=0
-    else 
+    elif [[ $len -eq 4 ]]; then
         num=1
+        flag=0
     fi
     while [[ $count -ne $2 ]]; do
-        flag2=$(( $count % 2 ))
         folder_name=""
+        count=$(( $count + 1 ))
         for (( j = 0; j < $len; j++ )); do
             folder_name="${folder_name}${chars[$j]}"
-            if [[ $flag == $j  && $count -ne 0 ]]; then
-                for (( i = 1; $i < $num; i++ )); do
+            if [[ $flag == $j ]]; then
+                for (( i = 0; $i < $num; i++ )); do
                     folder_name="${folder_name}${chars[$j]}"
                 done
                 if [[ $(( $len2 - $count )) -ne 0 ]]; then
@@ -46,13 +47,8 @@ function generator_name {
         if [[ $flag == $len ]]; then
             flag=0
         fi
-        if [[ -z $3 ]]; then
-            name=$(date +%d%m%g)
-            folder_name="/${folder_name}_${name}"
-        else
-            folder_name="${folder_name}"
-        fi
+        name=$(date +%d%m%g)
+        folder_name="/${folder_name}_${name}"
         echo $folder_name
-        count=$(( $count + 1 ))
     done
 }

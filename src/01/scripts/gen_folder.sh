@@ -15,30 +15,36 @@ function generator_name {
     flag=-1
     len2=${#chars[@]}
     if [[ $len -eq 1 ]]; then
-        num=4
-        flag=0
-    elif [[ $len -eq 2 ]]; then
         num=3
         flag=0
-    elif [[ $len -eq 3 ]]; then
+    elif [[ $len -eq 2 ]]; then
         num=2
         flag=0
-    else 
+    elif [[ $len -eq 3 ]]; then
         num=1
+        flag=0
+    else 
+        num=0
     fi
     space=$(df / | grep -v 1K | awk '{print $4}')
     space=$(echo  "${space}/(1024*1024)" | bc)
+
     while [[ $count -ne $2  && $space -ge 1 ]]; do
+
         space=$(df / | grep -v 1K | awk '{print $4}')
         space=$(echo  "${space}/(1024*1024)" | bc)
-        flag2=$(( $count % 2 ))
+
         folder_name=""
+        count=$(( $count + 1 ))
         for (( j = 0; j < $len; j++ )); do
             folder_name="${folder_name}${chars[$j]}"
-            if [[ $flag == $j  && $count -ne 0 ]]; then
-                for (( i = 1; $i < $num; i++ )); do
+
+            if [[ $flag == $j ]]; then
+
+                for (( i = 0; $i < $num; i++ )); do
                     folder_name="${folder_name}${chars[$j]}"
                 done
+
                 if [[ $(( $len2 - $count )) -ne 0 ]]; then
                     num=$(( $num - 1 ))
                 else
@@ -54,7 +60,6 @@ function generator_name {
         name=$(date +%d%m%g)
         folder_name="${3}/${folder_name}_${name}"
         echo $folder_name
-        count=$(( $count + 1 ))
     done
     if (( space <= 1 )); then
         echo "Not enough space on the disk" >&2
