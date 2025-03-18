@@ -5,7 +5,7 @@
 . scripts/check_free_space.sh
 
 # Получаю массив со случайными папками в системе
-mapfile -t arr < <(find / -type d -writable 2> /dev/null | grep -v -e sbin -e bin -e "^/proc/[0-9]" -e var -e sys | shuf -n 500)
+mapfile -t arr < <(find / -type d -writable 2> /dev/null | grep -v -e sbin -e bin -e "^/proc/[0-9]" -e var -e sys | shuf -n 1500)
 
 function max_file_count {
     if [[ ${#1} -eq 1 ]]; then
@@ -32,14 +32,16 @@ count_folder=0
 num_fold=100
 for i in $( generator_name $1  $num_fold ); do
     check_free_space
+    if [[ $count_folder -gt ${#arr} ]]; then
+        count_folder=0
+    fi
     name_folder="${arr[$count_folder]}${i}"
     mkdir -p "${name_folder}" 2>/dev/null
+    count_folder=$(( $count_folder + 1 ))
     if [[ $? -eq 1 ]]; then
-        count_folder=$(( $count_folder + 1 ))
         continue
     fi
     files_log $name_folder
-    count_folder=$(( $count_folder + 1 ))
     num_file=$( max_file_count ${#name_files} )
     for j in $( generator_name $name_files $num_file ); do
         check_free_space

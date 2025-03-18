@@ -10,5 +10,4 @@ if [[ $1 -eq 1 ]]; then
     for i in $file; do
         rm -rf $i 2>/dev/null
     done
-    rm $f
 fi

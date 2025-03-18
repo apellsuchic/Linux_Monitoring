@@ -8,7 +8,7 @@ if [[ $1 -eq 2 ]]; then
         exit 2
     fi
     read -r -p "Enter the end time of file creation: '2025-03-17 12:50'" end_date
-        if [[ -z $end_date || ! $end_date =~ "$regex" ]]; then
+        if [[ -z $end_date || ! $end_date =~ $regex ]]; then
         echo "Incorrect date form! Try again." >&2
         exit 2
     fi
