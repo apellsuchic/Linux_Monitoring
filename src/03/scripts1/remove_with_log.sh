@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $1 -eq 1 ]]; then
-    f=$( find ./ -name files_log_*.log  2>/dev/null)
+    f=$( find ../04/ -name files_log_*.log  2>/dev/null)
     if [[ -z $f ]]; then
         echo "File do not find" >&2
         exit 2 
